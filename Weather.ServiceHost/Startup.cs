@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ServiceHost
+namespace Weather.ServiceHost
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace ServiceHost
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ServiceHost", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Weather.ServiceHost", Version = "v1" });
             });
         }
 
@@ -41,7 +41,7 @@ namespace ServiceHost
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ServiceHost v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Weather.ServiceHost v1"));
             }
 
             app.UseHttpsRedirection();
