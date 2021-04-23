@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Weather.SDK.Interfaces
 {
-    public interface ICItyService
+    public interface ICityService
     {
     }
 }

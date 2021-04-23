@@ -6,7 +6,7 @@ using Weather.SDK.Interfaces;
 
 namespace Weather.ServiceHost.Services
 {
-    public class CityService : ICItyService
+    public class CityService : ICityService
     {
     }
 }
