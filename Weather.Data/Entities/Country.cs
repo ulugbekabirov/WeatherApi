@@ -24,6 +24,10 @@ namespace Weather.Data.Entities
         [StringLength(2)]
         public string AlphaCode { get; set; }
 
+        public double Version { get; set; }
+
+        public bool IsDeleted { get; set; }
+
         public ICollection<City> Cities { get; set; }
     }
 }
