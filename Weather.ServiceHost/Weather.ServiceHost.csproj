@@ -13,6 +13,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Weather.RA\Weather.RA.csproj" />
+    <ProjectReference Include="..\Weather.SDK\Weather.SDK.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Mappings\" />
   </ItemGroup>
 
 </Project>
