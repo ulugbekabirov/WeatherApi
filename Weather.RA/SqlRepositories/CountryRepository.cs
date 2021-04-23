@@ -1,38 +1,52 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Weather.Data.Entities;
+using Weather.RA.DbContexts;
 using Weather.RA.Interfaces;
 
 namespace Weather.RA.SqlRepositories
 {
     public class CountryRepository : ICountryRepository
     {
-        public Task<Country> CreateAsync(Country entity)
+        private readonly SqlContext _context;
+
+        public CountryRepository(SqlContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteAsync(Country entity)
+        public async Task CreateAsync(Country entity)
         {
-            throw new NotImplementedException();
+            await _context.Countries.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<Country>> GetAllAsync()
+        public async Task DeleteAsync(Country entity)
         {
-            throw new NotImplementedException();
+            var city = await _context.Countries.FindAsync(entity.Id);
+            city.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
 
-        public Task<Country> GetByIdAsync(int id)
+        public async Task<IEnumerable<Country>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Countries.Include(c => c.Cities).ToListAsync();
         }
 
-        public Task UpdateAsync(Country entity)
+        public async Task<Country> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Countries.Include(c => c.Cities).FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(Country entity)
+        {
+            _context.Countries.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
