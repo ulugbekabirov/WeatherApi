@@ -8,9 +8,9 @@ using Weather.Data.Entities;
 
 namespace Weather.RA.DbContexts
 {
-    public class SQLContext : DbContext
+    public class SqlContext : DbContext
     {
-        public SQLContext() : base()
+        public SqlContext() : base()
         {
             
         }
