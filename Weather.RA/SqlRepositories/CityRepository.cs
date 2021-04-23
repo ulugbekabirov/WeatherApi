@@ -3,37 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using
 using Weather.RA.Interfaces;
 using Weather.Data.Entities;
+using Weather.RA.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Weather.RA.SqlRepositories
 {
     public class CityRepository : ICityRepository
     {
-        public Task<City> CreateAsync(City entity)
+        private readonly SqlContext _context;
+
+        public CityRepository(SqlContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Task DeleteAsync(City entity)
+        public async Task CreateAsync(City entity)
         {
-            throw new NotImplementedException();
+            await _context.Cities.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<City>> GetAllAsync()
+        public async Task DeleteAsync(City entity)
         {
-            throw new NotImplementedException();
+            var city = await _context.Cities.FindAsync(entity.Id);
+            city.IsDeleted = true;
+            await _context.SaveChangesAsync();
         }
 
-        public Task<City> GetByIdAsync(int id)
+        public async Task<IEnumerable<City>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Cities.ToListAsync();
         }
 
-        public Task UpdateAsync(City entity)
+        public async Task<City> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Cities.FirstOrDefaultAsync();
+        }
+
+        public async Task UpdateAsync(City entity)
+        {
+            _context.Cities.Update(entity);
+            await _context.SaveChangesAsync();
         }
     }
 }
