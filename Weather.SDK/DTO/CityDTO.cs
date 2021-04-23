@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Weather.SDK.DTO
 {
-    class CityDTO
+    public class CityDTO
     {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public double Temperature { get; set; }
     }
 }
