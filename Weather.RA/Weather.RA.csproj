@@ -10,8 +10,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DbContexts\" />
     <Folder Include="Interfaces\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Weather.Data\Weather.Data.csproj" />
   </ItemGroup>
 
 </Project>
