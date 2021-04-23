@@ -12,7 +12,7 @@ namespace Weather.RA.Interfaces
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 
-        Task<TEntity> CreateAsync(TEntity entity);
+        Task CreateAsync(TEntity entity);
 
         Task UpdateAsync(TEntity entity);
 
