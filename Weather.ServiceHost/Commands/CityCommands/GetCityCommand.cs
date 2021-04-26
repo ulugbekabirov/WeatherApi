@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Weather.Data.Entities;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Commands.CityCommands
