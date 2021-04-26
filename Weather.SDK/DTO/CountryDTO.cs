@@ -7,5 +7,7 @@
         public string Name { get; set; }
 
         public string AlphaCode { get; set; }
+
+        public double Version { get; set; }
     }
 }
