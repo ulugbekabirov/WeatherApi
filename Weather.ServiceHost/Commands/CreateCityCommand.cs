@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using Weather.Data.Entities;
+using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Commands
 {
     public class CreateCityCommand: IRequest
     {
-        public City City { get; set; }
+        public CityDTO City { get; set; }
     }
 }

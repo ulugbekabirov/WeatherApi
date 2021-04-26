@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Weather.SDK.DTO;
+using Weather.ServiceHost.Commands;
 
 namespace Weather.ServiceHost.Controllers
 {
     [Route("api/city")]
     public class CityController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public CityController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         [HttpGet]
         public async Task<IEnumerable<string>> GetCities()
         {
@@ -20,8 +31,9 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPost]
-        public async Task CreateCity([FromBody] string value)
+        public async Task CreateCity([FromBody] CityDTO city)
         {
+            await _mediator.Send(new CreateCityCommand() { City = city });
         }
 
         [HttpPut("{id}")]
