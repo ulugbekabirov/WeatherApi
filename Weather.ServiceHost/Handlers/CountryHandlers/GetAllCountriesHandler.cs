@@ -9,7 +9,7 @@ using Weather.ServiceHost.Commands.CountryCommands;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class GetAllCountriesHandler : IRequestHandler<GetCountryCommand, IEnumerable<CountryDTO>>
+    public class GetAllCountriesHandler : IRequestHandler<GetAllCountriesCommand, IEnumerable<CountryDTO>>
     {
         private readonly CountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -20,7 +20,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CountryDTO>> Handle(GetCountryCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CountryDTO>> Handle(GetAllCountriesCommand request, CancellationToken cancellationToken)
         {
             var countries = await _countryRepository.GetAllAsync();
             return _mapper.Map<CountryDTO[]>(countries);
