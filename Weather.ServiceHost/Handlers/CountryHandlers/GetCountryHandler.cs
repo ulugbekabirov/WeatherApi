@@ -1,8 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Weather.RA.SqlRepositories;
@@ -22,9 +19,10 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        public Task<CountryDTO> Handle(GetCountryCommand request, CancellationToken cancellationToken)
+        public async Task<CountryDTO> Handle(GetCountryCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var country = await _countryRepository.GetByIdAsync(request.CountryId);
+            return _mapper.Map<CountryDTO>(country);
         }
     }
 }

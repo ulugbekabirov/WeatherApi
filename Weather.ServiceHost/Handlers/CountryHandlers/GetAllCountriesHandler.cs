@@ -20,9 +20,10 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        public Task<IEnumerable<CountryDTO>> Handle(GetCountryCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CountryDTO>> Handle(GetCountryCommand request, CancellationToken cancellationToken)
         {
-            throw new System.NotImplementedException();
+            var countries = await _countryRepository.GetAllAsync();
+            return _mapper.Map<CountryDTO[]>(countries);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Weather.Data.Entities;
 using Weather.RA.SqlRepositories;
 using Weather.ServiceHost.Commands.CountryCommands;
 
@@ -21,7 +21,8 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
         protected override async Task Handle(UpdateCountryCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var country = _mapper.Map<Country>(request.Country);
+            await _countryRepository.UpdateAsync(country);
         }
     }
 }

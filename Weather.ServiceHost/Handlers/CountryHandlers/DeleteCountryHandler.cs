@@ -19,9 +19,9 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        protected override Task Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            await _countryRepository.DeleteAsync(request.CountryId);
         }
     }
 }
