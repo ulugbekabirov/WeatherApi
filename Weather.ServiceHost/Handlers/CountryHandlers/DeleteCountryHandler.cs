@@ -21,7 +21,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
         protected override async Task Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
         {
-            await _countryRepository.DeleteAsync(request.CountryId);
+            await _countryRepository.DeleteSoftlyAsync(request.CountryId);
         }
     }
 }
