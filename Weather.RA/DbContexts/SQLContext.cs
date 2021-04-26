@@ -5,7 +5,8 @@ namespace Weather.RA.DbContexts
 {
     public class SqlContext : DbContext
     {
-        public SqlContext() : base()
+        public SqlContext(DbContextOptions<SqlContext> options)
+            : base(options)
         {
             
         }
