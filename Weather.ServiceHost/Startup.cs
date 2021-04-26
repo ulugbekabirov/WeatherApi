@@ -10,6 +10,8 @@ using Weather.RA.Interfaces;
 using Weather.RA.SqlRepositories;
 using Weather.ServiceHost.Services;
 using Weather.SDK.Interfaces;
+using MediatR;
+using Weather.ServiceHost.Mappings;
 
 namespace Weather.ServiceHost
 {
@@ -38,6 +40,10 @@ namespace Weather.ServiceHost
 
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICountryService, CountryService>();
+
+            services.AddMediatR(typeof(Startup));
+
+            services.AddAutoMapper(c => c.AddProfile<MappingProfile>(), typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
