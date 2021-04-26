@@ -1,10 +1,9 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Weather.SDK.DTO;
-using Weather.ServiceHost.Commands;
+using Weather.ServiceHost.Commands.CityCommands;
 
 namespace Weather.ServiceHost.Controllers
 {
@@ -19,15 +18,15 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<string>> GetCities()
+        public async Task<IEnumerable<CityDTO>> GetCities()
         {
-            return new string[] { "value1", "value2" };
+            return await _mediator.Send(new GetAllCitiesCommand());
         }
 
         [HttpGet("{id}")]
-        public async Task<string> GetCityById(int id)
+        public async Task<CityDTO> GetCityById(int id)
         {
-            return "value";
+            return await _mediator.Send(new GetCityCommand() { CityId = id });
         }
 
         [HttpPost]
@@ -37,13 +36,15 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateCity(int id, [FromBody] string value)
+        public async Task UpdateCity(int id, [FromBody] CityDTO city)
         {
+            await _mediator.Send(new UpdateCityCommand() { City = city });
         }
 
         [HttpDelete("{id}")]
         public async Task DeleteCity(int id)
         {
+            await _mediator.Send(new DeleteCityCommand() { CityId = id });
         }
     }
 }
