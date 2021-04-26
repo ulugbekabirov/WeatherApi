@@ -23,9 +23,9 @@ namespace Weather.RA.SqlRepositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(City entity)
+        public async Task DeleteSoftlyAsync(int id)
         {
-            var city = await _context.Cities.FindAsync(entity.Id);
+            var city = await _context.Cities.FindAsync(id);
             city.IsDeleted = true;
             await _context.SaveChangesAsync();
         }

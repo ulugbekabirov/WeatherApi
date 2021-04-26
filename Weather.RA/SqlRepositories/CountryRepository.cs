@@ -23,7 +23,7 @@ namespace Weather.RA.SqlRepositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int id)
+        public async Task DeleteSoftlyAsync(int id)
         {
             var country = await _context.Countries.FindAsync(id);
             country.IsDeleted = true;
