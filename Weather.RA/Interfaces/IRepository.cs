@@ -13,6 +13,6 @@ namespace Weather.RA.Interfaces
 
         Task UpdateAsync(TEntity entity);
 
-        Task DeleteAsync(TEntity entity);
+        Task DeleteAsync(int id);
     }
 }
