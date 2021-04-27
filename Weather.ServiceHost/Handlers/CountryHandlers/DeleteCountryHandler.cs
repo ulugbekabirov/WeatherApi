@@ -1,14 +1,16 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Weather.RA.SqlRepositories;
-using Weather.ServiceHost.Commands.CountryCommands;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class DeleteCountryHandler : AsyncRequestHandler<DeleteCountryCommand>
+    public class DeleteCountryRequest : IRequest
+    {
+        public int CountryId { get; set; }
+    }
+    public class DeleteCountryHandler : AsyncRequestHandler<DeleteCountryRequest>
     {
         private readonly CountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -19,7 +21,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(DeleteCountryCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(DeleteCountryRequest request, CancellationToken cancellationToken)
         {
             await _countryRepository.DeleteSoftlyAsync(request.CountryId);
         }

@@ -4,11 +4,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using Weather.Data.Entities;
 using Weather.RA.SqlRepositories;
-using Weather.ServiceHost.Commands.CountryCommands;
+using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class UpdateCountryHandler : AsyncRequestHandler<UpdateCountryCommand>
+    public class UpdateCountryRequest : IRequest
+    {
+        public CountryDTO Country { get; set; }
+    }
+
+    public class UpdateCountryHandler : AsyncRequestHandler<UpdateCountryRequest>
     {
         private readonly CountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -19,7 +24,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(UpdateCountryCommand request, CancellationToken cancellationToken)
+        protected override async Task Handle(UpdateCountryRequest request, CancellationToken cancellationToken)
         {
             var country = _mapper.Map<Country>(request.Country);
             await _countryRepository.UpdateAsync(country);

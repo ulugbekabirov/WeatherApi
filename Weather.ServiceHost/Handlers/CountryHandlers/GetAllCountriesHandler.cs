@@ -5,11 +5,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Weather.RA.SqlRepositories;
 using Weather.SDK.DTO;
-using Weather.ServiceHost.Commands.CountryCommands;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class GetAllCountriesHandler : IRequestHandler<GetAllCountriesCommand, IEnumerable<CountryDTO>>
+    public class GetAllCountriesRequest : IRequest<IEnumerable<CountryDTO>>
+    {
+    }
+
+    public class GetAllCountriesHandler : IRequestHandler<GetAllCountriesRequest, IEnumerable<CountryDTO>>
     {
         private readonly CountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -20,7 +23,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CountryDTO>> Handle(GetAllCountriesCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CountryDTO>> Handle(GetAllCountriesRequest request, CancellationToken cancellationToken)
         {
             var countries = await _countryRepository.GetAllAsync();
             return _mapper.Map<CountryDTO[]>(countries);

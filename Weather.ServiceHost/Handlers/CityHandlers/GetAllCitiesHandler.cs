@@ -5,11 +5,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using Weather.RA.SqlRepositories;
 using Weather.SDK.DTO;
-using Weather.ServiceHost.Commands.CityCommands;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
 {
-    public class GetAllCitiesHandler : IRequestHandler<GetAllCitiesCommand, IEnumerable<CityDTO>>
+    public class GetAllCitiesRequest : IRequest<IEnumerable<CityDTO>>
+    {
+
+    }
+    public class GetAllCitiesHandler : IRequestHandler<GetAllCitiesRequest, IEnumerable<CityDTO>>
     {
         private readonly CityRepository _cityRepository;
         private readonly IMapper _mapper;
@@ -20,7 +23,7 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<CityDTO>> Handle(GetAllCitiesCommand request, CancellationToken cancellationToken)
+        public async Task<IEnumerable<CityDTO>> Handle(GetAllCitiesRequest request, CancellationToken cancellationToken)
         {
             var cities = await _cityRepository.GetAllAsync();
             return _mapper.Map<CityDTO[]>(cities);

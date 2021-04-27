@@ -1,17 +1,18 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Weather.RA.SqlRepositories;
 using Weather.SDK.DTO;
-using Weather.ServiceHost.Commands.CountryCommands;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class GetCountryHandler : IRequestHandler<GetCountryCommand, CountryDTO>
+    public class GetCountryRequest : IRequest<CountryDTO>
+    {
+        public int CountryId { get; set; }
+    }
+
+    public class GetCountryHandler : IRequestHandler<GetCountryRequest, CountryDTO>
     {
         private readonly CountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -22,7 +23,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        public async Task<CountryDTO> Handle(GetCountryCommand request, CancellationToken cancellationToken)
+        public async Task<CountryDTO> Handle(GetCountryRequest request, CancellationToken cancellationToken)
         {
             var country = await _countryRepository.GetByIdAsync(request.CountryId);
             return _mapper.Map<CountryDTO>(country);
