@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Weather.SDK.DTO;
-using Weather.ServiceHost.Commands.CountryCommands;
+using Weather.ServiceHost.Handlers.CountryHandlers;
 
 namespace Weather.ServiceHost.Controllers
 {
@@ -20,31 +20,31 @@ namespace Weather.ServiceHost.Controllers
         [HttpGet]
         public async Task<IEnumerable<CountryDTO>> GetCountries()
         {
-            return await _mediator.Send(new GetAllCountriesCommand());
+            return await _mediator.Send(new GetAllCountriesRequest());
         }
 
         [HttpGet("{id}")]
         public async Task<CountryDTO> GetCountryById(int id)
         {
-            return await _mediator.Send(new GetCountryCommand() { CountryId = id });
+            return await _mediator.Send(new GetCountryRequest() { CountryId = id });
         }
 
         [HttpPost]
         public async Task CreateCountry([FromBody] CountryDTO country)
         {
-            await _mediator.Send(new CreateCountryCommand() { Country = country });
+            await _mediator.Send(new CreateCountryRequest() { Country = country });
         }
 
         [HttpPut("{id}")]
         public async Task UpdateCountry(int id, [FromBody] CountryDTO country)
         {
-            await _mediator.Send(new UpdateCountryCommand() { Country = country });
+            await _mediator.Send(new UpdateCountryRequest() { Country = country });
         }
 
         [HttpDelete("{id}")]
         public async Task DeleteCountry(int id)
         {
-            await _mediator.Send(new DeleteCountryCommand() { CountryId = id });
+            await _mediator.Send(new DeleteCountryRequest() { CountryId = id });
         }
     }
 }
