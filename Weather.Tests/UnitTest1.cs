@@ -7,6 +7,7 @@ namespace Weather.Tests
         [SetUp]
         public void Setup()
         {
+            // Method intentionally left empty.
         }
 
         [Test]

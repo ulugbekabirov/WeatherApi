@@ -4,7 +4,7 @@ using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Mappings
 {
-    public class MappingProfile :Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
