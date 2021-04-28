@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Weather.RA.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Weather.Data.Entities;
 using Weather.RA.DbContexts;
-using Microsoft.EntityFrameworkCore;
+using Weather.RA.Interfaces;
 
 namespace Weather.RA.SqlRepositories
 {

@@ -3,7 +3,8 @@ using System.Threading.Tasks;
 
 namespace Weather.RA.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<TEntity>
+        where TEntity : class
     {
         Task<TEntity> GetByIdAsync(int id);
 

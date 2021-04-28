@@ -8,7 +8,6 @@ namespace Weather.RA.DbContexts
         public SqlContext(DbContextOptions<SqlContext> options)
             : base(options)
         {
-            
         }
 
         public DbSet<City> Cities { get; set; }
