@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using MediatR;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 using Weather.RA.SqlRepositories;
 using Weather.SDK.DTO;
 
@@ -10,8 +10,8 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 {
     public class GetAllCitiesRequest : IRequest<IEnumerable<CityDTO>>
     {
-
     }
+
     public class GetAllCitiesHandler : IRequestHandler<GetAllCitiesRequest, IEnumerable<CityDTO>>
     {
         private readonly CityRepository _cityRepository;

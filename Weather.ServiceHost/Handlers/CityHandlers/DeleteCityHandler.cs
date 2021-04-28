@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-using MediatR;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 using Weather.RA.SqlRepositories;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers

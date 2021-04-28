@@ -1,13 +1,13 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Weather.SDK.DTO;
 using Weather.ServiceHost.Handlers.CountryHandlers;
 
 namespace Weather.ServiceHost.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/countries")]
     public class CountryController : ControllerBase
     {
         private readonly IMediator _mediator;
