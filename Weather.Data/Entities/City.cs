@@ -10,9 +10,7 @@ namespace Weather.Data.Entities
         [Required]
         public string Name { get; set; }
 
-        public double Temperature { get; set; }
-
-        public double Version { get; set; }
+        public int Version { get; set; }
 
         public bool IsDeleted { get; set; }
     }

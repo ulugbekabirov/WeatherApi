@@ -12,15 +12,14 @@ namespace Weather.Data.Entities
 
         [Required]
         public int Id { get; set; }
-        
+
         [Required]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(2)]
         public string AlphaCode { get; set; }
 
-        public double Version { get; set; }
+        public int Version { get; set; }
 
         public bool IsDeleted { get; set; }
 
