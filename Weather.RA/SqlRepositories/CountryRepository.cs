@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Weather.Data.Entities;
@@ -32,12 +33,12 @@ namespace Weather.RA.SqlRepositories
 
         public async Task<IEnumerable<Country>> GetAllAsync()
         {
-            return await _context.Countries.Include(c => c.Cities).ToListAsync();
+            return await _context.Countries.Where(c => !c.IsDeleted).Include(c => c.Cities).ToListAsync();
         }
 
         public async Task<Country> GetByIdAsync(int id)
         {
-            return await _context.Countries.Include(c => c.Cities).FirstOrDefaultAsync();
+            return await _context.Countries.Include(c => c.Cities).FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
         }
 
         public async Task UpdateAsync(Country entity)
