@@ -12,7 +12,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
     public class UpdateCountryRequest : IRequest<IActionResult>
     {
         public int Id { get; set; }
-        
+
         public CreateCountryDTO Country { get; set; }
     }
 
@@ -31,6 +31,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
         {
             var country = _mapper.Map<Country>(request.Country);
             await _countryRepository.UpdateAsync(country);
+            return new NoContentResult();
         }
     }
 }

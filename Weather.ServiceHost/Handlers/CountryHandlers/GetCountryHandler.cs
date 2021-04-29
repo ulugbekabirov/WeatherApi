@@ -27,7 +27,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
         public async Task<IActionResult> Handle(GetCountryRequest request, CancellationToken cancellationToken)
         {
             var country = await _countryRepository.GetByIdAsync(request.CountryId);
-            return _mapper.Map<CountryDTO>(country);
+            return new OkObjectResult(_mapper.Map<CountryDTO>(country));
         }
     }
 }

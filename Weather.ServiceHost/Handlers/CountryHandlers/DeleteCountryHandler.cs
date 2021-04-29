@@ -26,6 +26,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
         public async Task<IActionResult> Handle(DeleteCountryRequest request, CancellationToken cancellationToken)
         {
             await _countryRepository.DeleteSoftlyAsync(request.CountryId);
+            return new OkResult();
         }
     }
 }

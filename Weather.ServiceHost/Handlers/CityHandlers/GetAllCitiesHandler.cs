@@ -27,7 +27,7 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
         public async Task<IActionResult> Handle(GetAllCitiesRequest request, CancellationToken cancellationToken)
         {
             var cities = await _cityRepository.GetAllAsync();
-            return _mapper.Map<CityDTO[]>(cities);
+            return new OkObjectResult(_mapper.Map<CityDTO[]>(cities));
         }
     }
 }
