@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Weather.Data.Entities;
 
@@ -6,7 +7,7 @@ namespace Weather.RA.Interfaces
 {
     public interface ICityRepository
     {
-        Task<City> GetByIdAsync(int id);
+        Task<City> GetByIdAsync(Guid id);
 
         Task<IEnumerable<City>> GetAllAsync();
 
@@ -14,6 +15,6 @@ namespace Weather.RA.Interfaces
 
         Task UpdateAsync(City entity);
 
-        Task DeleteSoftlyAsync(int id);
+        Task DeleteSoftlyAsync(Guid id);
     }
 }

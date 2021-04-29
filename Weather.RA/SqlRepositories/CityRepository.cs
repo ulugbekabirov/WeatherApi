@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,7 @@ namespace Weather.RA.SqlRepositories
             return city.Entity;
         }
 
-        public async Task DeleteSoftlyAsync(int id)
+        public async Task DeleteSoftlyAsync(Guid id)
         {
             var city = await _context.Cities.FindAsync(id);
             city.IsDeleted = true;
@@ -36,7 +37,7 @@ namespace Weather.RA.SqlRepositories
             return await _context.Cities.Where(c => !c.IsDeleted).ToListAsync();
         }
 
-        public async Task<City> GetByIdAsync(int id)
+        public async Task<City> GetByIdAsync(Guid id)
         {
             return await _context.Cities.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
         }
