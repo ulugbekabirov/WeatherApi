@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Weather.Data.Entities
 {
     public class City
     {
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
+
+        [Required]
+        public Guid CountryId { get; set; }
 
         [Required]
         public string Name { get; set; }

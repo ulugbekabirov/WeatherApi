@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Weather.Data.Entities
@@ -11,7 +12,7 @@ namespace Weather.Data.Entities
         }
 
         [Required]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
         public string Name { get; set; }
