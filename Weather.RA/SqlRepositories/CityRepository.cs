@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Weather.Data.Entities;
@@ -16,11 +17,11 @@ namespace Weather.RA.SqlRepositories
             _context = context;
         }
 
-        public async Task CreateAsync(City entity)
+        public async Task<City> CreateAsync(City entity)
         {
-            await _context.Cities.AddAsync(entity);
-
+            var city = await _context.Cities.AddAsync(entity);
             await _context.SaveChangesAsync();
+            return city.Entity;
         }
 
         public async Task DeleteSoftlyAsync(int id)
@@ -32,12 +33,12 @@ namespace Weather.RA.SqlRepositories
 
         public async Task<IEnumerable<City>> GetAllAsync()
         {
-            return await _context.Cities.ToListAsync();
+            return await _context.Cities.Where(c => !c.IsDeleted).ToListAsync();
         }
 
         public async Task<City> GetByIdAsync(int id)
         {
-            return await _context.Cities.FirstOrDefaultAsync();
+            return await _context.Cities.FirstOrDefaultAsync(c => c.Id == id && !c.IsDeleted);
         }
 
         public async Task UpdateAsync(City entity)
