@@ -2,18 +2,19 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Weather.Data.Entities;
 using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
 {
-    public class CreateCityRequest : IRequest
+    public class CreateCityRequest : IRequest<IActionResult>
     {
-        public CityDTO City { get; set; }
+        public CreateCityDTO City { get; set; }
     }
 
-    public class CreateCityHandler : AsyncRequestHandler<CreateCityRequest>
+    public class CreateCityHandler : IRequestHandler<CreateCityRequest, IActionResult>
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
@@ -24,10 +25,10 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(CreateCityRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(CreateCityRequest request, CancellationToken cancellationToken)
         {
             var city = _mapper.Map<City>(request.City);
-            await _cityRepository.CreateAsync(city);
+            return new OkObjectResult(await _cityRepository.CreateAsync(city));
         }
     }
 }

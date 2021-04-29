@@ -2,16 +2,17 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Weather.RA.Interfaces;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
 {
-    public class DeleteCityRequest : IRequest
+    public class DeleteCityRequest : IRequest<IActionResult>
     {
         public int CityId { get; set; }
     }
 
-    public class DeleteCityHandler : AsyncRequestHandler<DeleteCityRequest>
+    public class DeleteCityHandler : IRequestHandler<DeleteCityRequest, IActionResult>
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
@@ -22,9 +23,9 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(DeleteCityRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(DeleteCityRequest request, CancellationToken cancellationToken)
         {
-            await _cityRepository.DeleteSoftlyAsync(request.CityId);
+            return await _cityRepository.DeleteSoftlyAsync(request.CityId);
         }
     }
 }
