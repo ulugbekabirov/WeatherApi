@@ -2,16 +2,17 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Weather.RA.Interfaces;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class DeleteCountryRequest : IRequest
+    public class DeleteCountryRequest : IRequest<IActionResult>
     {
         public int CountryId { get; set; }
     }
 
-    public class DeleteCountryHandler : AsyncRequestHandler<DeleteCountryRequest>
+    public class DeleteCountryHandler : IRequestHandler<DeleteCountryRequest, IActionResult>
     {
         private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -22,7 +23,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(DeleteCountryRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(DeleteCountryRequest request, CancellationToken cancellationToken)
         {
             await _countryRepository.DeleteSoftlyAsync(request.CountryId);
         }

@@ -2,18 +2,21 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Weather.Data.Entities;
 using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
-    public class UpdateCountryRequest : IRequest
+    public class UpdateCountryRequest : IRequest<IActionResult>
     {
-        public CountryDTO Country { get; set; }
+        public int Id { get; set; }
+        
+        public CreateCountryDTO Country { get; set; }
     }
 
-    public class UpdateCountryHandler : AsyncRequestHandler<UpdateCountryRequest>
+    public class UpdateCountryHandler : IRequestHandler<UpdateCountryRequest, IActionResult>
     {
         private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
@@ -24,7 +27,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
             _mapper = mapper;
         }
 
-        protected override async Task Handle(UpdateCountryRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Handle(UpdateCountryRequest request, CancellationToken cancellationToken)
         {
             var country = _mapper.Map<Country>(request.Country);
             await _countryRepository.UpdateAsync(country);
