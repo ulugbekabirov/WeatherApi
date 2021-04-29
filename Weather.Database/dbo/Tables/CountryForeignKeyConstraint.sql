@@ -1,4 +1,4 @@
-﻿ALTER TABLE [dbo].[City]
-	ADD CONSTRAINT [CountryForeignKeyConstraint]
+﻿Alter TABLE [dbo].[Cities]
+	ADD CONSTRAINT [CountriesForeignKeyConstraint]
 	FOREIGN KEY (CountryId)
-	REFERENCES [Country] (Id)
+	REFERENCES [Countries] (Id)

@@ -60,11 +60,11 @@
     <Folder Include="dbo\Tables" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Cities.sql" />
-    <Build Include="dbo\Tables\Countries.sql" />
-    <Build Include="dbo\Tables\CountryForeignKeyConstraint.sql" />
+    <RefactorLog Include="Weather.Database.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <RefactorLog Include="Weather.Database.refactorlog" />
+    <Build Include="dbo\Tables\Countries.sql" />
+    <Build Include="dbo\Tables\Cities.sql" />
+    <Build Include="dbo\Tables\CountryForeignKeyConstraint.sql" />
   </ItemGroup>
 </Project>
