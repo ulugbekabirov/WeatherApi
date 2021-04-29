@@ -25,7 +25,8 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 
         public async Task<IActionResult> Handle(DeleteCityRequest request, CancellationToken cancellationToken)
         {
-            return await _cityRepository.DeleteSoftlyAsync(request.CityId);
+            await _cityRepository.DeleteSoftlyAsync(request.CityId);
+            return new OkResult();
         }
     }
 }
