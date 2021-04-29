@@ -29,6 +29,7 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
         {
             var city = _mapper.Map<City>(request.City);
             await _cityRepository.UpdateAsync(city);
+            return new NoContentResult();
         }
     }
 }
