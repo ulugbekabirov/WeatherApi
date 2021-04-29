@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Weather.SDK.DTO;
@@ -18,33 +17,34 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CityDTO>> GetCities()
+        public async Task<IActionResult> GetCities()
         {
             return await _mediator.Send(new GetAllCitiesRequest());
         }
 
         [HttpGet("{id}")]
-        public async Task<CityDTO> GetCityById(int id)
+        public async Task<IActionResult> GetCityById(int id)
         {
-             return await _mediator.Send(new GetCityRequest() { CityId = id });
+            Ok(id);
+            return await _mediator.Send(new GetCityRequest() { CityId = id });
         }
 
         [HttpPost]
-        public async Task CreateCity([FromBody] CityDTO city)
+        public async Task<IActionResult> CreateCity([FromBody] CreateCityDTO city)
         {
-            await _mediator.Send(new CreateCityRequest() { City = city });
+            return await _mediator.Send(new CreateCityRequest() { City = city });
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateCity(int id, [FromBody] CityDTO city)
+        public async Task<IActionResult> UpdateCity(int id, [FromBody] CreateCityDTO city)
         {
-            await _mediator.Send(new UpdateCityRequest() { City = city });
+            return await _mediator.Send(new UpdateCityRequest() { City = city });
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteCity(int id)
+        public async Task<IActionResult> DeleteCity(int id)
         {
-            await _mediator.Send(new DeleteCityRequest() { CityId = id });
+            return await _mediator.Send(new DeleteCityRequest() { CityId = id });
         }
     }
 }

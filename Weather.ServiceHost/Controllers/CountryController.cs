@@ -18,33 +18,33 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<CountryDTO>> GetCountries()
+        public async Task<IActionResult> GetCountries()
         {
             return await _mediator.Send(new GetAllCountriesRequest());
         }
 
         [HttpGet("{id}")]
-        public async Task<CountryDTO> GetCountryById(int id)
+        public async Task<IActionResult> GetCountryById(int id)
         {
             return await _mediator.Send(new GetCountryRequest() { CountryId = id });
         }
 
         [HttpPost]
-        public async Task CreateCountry([FromBody] CountryDTO country)
+        public async Task<IActionResult> CreateCountry([FromBody] CreateCountryDTO country)
         {
-            await _mediator.Send(new CreateCountryRequest() { Country = country });
+            return await _mediator.Send(new CreateCountryRequest() { Country = country });
         }
 
         [HttpPut("{id}")]
-        public async Task UpdateCountry(int id, [FromBody] CountryDTO country)
+        public async Task<IActionResult> UpdateCountry(int id, [FromBody] CreateCountryDTO country)
         {
-            await _mediator.Send(new UpdateCountryRequest() { Country = country });
+            return await _mediator.Send(new UpdateCountryRequest() { Id = id, Country = country });
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteCountry(int id)
+        public async Task<IActionResult> DeleteCountry(int id)
         {
-            await _mediator.Send(new DeleteCountryRequest() { CountryId = id });
+            return await _mediator.Send(new DeleteCountryRequest() { CountryId = id });
         }
     }
 }
