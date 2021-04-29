@@ -17,5 +17,7 @@ namespace Weather.Data.Entities
         public int Version { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public Country Country { get; set; }
     }
 }
