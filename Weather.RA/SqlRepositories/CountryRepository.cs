@@ -16,11 +16,11 @@ namespace Weather.RA.SqlRepositories
             _context = context;
         }
 
-        public async Task CreateAsync(Country entity)
+        public async Task<Country> CreateAsync(Country entity)
         {
-            await _context.Countries.AddAsync(entity);
-
+            var country = await _context.Countries.AddAsync(entity);
             await _context.SaveChangesAsync();
+            return country.Entity;
         }
 
         public async Task DeleteSoftlyAsync(int id)
