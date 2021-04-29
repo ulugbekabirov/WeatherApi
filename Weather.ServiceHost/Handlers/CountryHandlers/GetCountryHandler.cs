@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Weather.RA.SqlRepositories;
+using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
@@ -14,10 +14,10 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
     public class GetCountryHandler : IRequestHandler<GetCountryRequest, CountryDTO>
     {
-        private readonly CountryRepository _countryRepository;
+        private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
 
-        public GetCountryHandler(CountryRepository countryRepository, IMapper mapper)
+        public GetCountryHandler(ICountryRepository countryRepository, IMapper mapper)
         {
             _countryRepository = countryRepository;
             _mapper = mapper;

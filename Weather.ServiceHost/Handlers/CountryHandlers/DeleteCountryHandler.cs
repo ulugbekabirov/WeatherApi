@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Weather.RA.SqlRepositories;
+using Weather.RA.Interfaces;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
@@ -13,10 +13,10 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
     public class DeleteCountryHandler : AsyncRequestHandler<DeleteCountryRequest>
     {
-        private readonly CountryRepository _countryRepository;
+        private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
 
-        public DeleteCountryHandler(CountryRepository countryRepository, IMapper mapper)
+        public DeleteCountryHandler(ICountryRepository countryRepository, IMapper mapper)
         {
             _countryRepository = countryRepository;
             _mapper = mapper;

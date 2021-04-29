@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using Weather.Data.Entities;
-using Weather.RA.SqlRepositories;
+using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
@@ -15,10 +15,10 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 
     public class CreateCityHandler : AsyncRequestHandler<CreateCityRequest>
     {
-        private readonly CityRepository _cityRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
 
-        public CreateCityHandler(CityRepository cityRepository, IMapper mapper)
+        public CreateCityHandler(ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
             _mapper = mapper;

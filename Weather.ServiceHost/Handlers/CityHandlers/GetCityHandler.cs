@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
-using Weather.RA.SqlRepositories;
+using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
@@ -14,10 +14,10 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 
     public class GetCityHandler : IRequestHandler<GetCityRequest, CityDTO>
     {
-        private readonly CityRepository _cityRepository;
+        private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
 
-        public GetCityHandler(CityRepository cityRepository, IMapper mapper)
+        public GetCityHandler(ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
             _mapper = mapper;
