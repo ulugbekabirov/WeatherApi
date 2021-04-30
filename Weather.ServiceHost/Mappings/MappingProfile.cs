@@ -15,6 +15,10 @@ namespace Weather.ServiceHost.Mappings
             CreateMap<CreateCityDTO, City>().ReverseMap();
 
             CreateMap<CreateCountryDTO, Country>().ReverseMap();
+
+            CreateMap<UpdateCityDTO, City>().ReverseMap();
+
+            CreateMap<UpdateCountryDTO, Country>().ReverseMap();
         }
     }
 }
