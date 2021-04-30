@@ -15,8 +15,8 @@ namespace Weather.ServiceHost.Validators
         public CountryValidator()
         {
             RuleFor(c => c.Name).NotEmpty().WithMessage("Country name is required");
-            RuleFor(c => c.AlphaCode).NotEmpty().WithMessage("AlphaCode of country is required");
-            RuleFor(c => c.AlphaCode).Length(MinAlphaCodeLength, MaxAlphaCodeLength).WithMessage("AlphaCode length is either 2 or 3");
+            RuleFor(c => c.AlphaCode).NotEmpty().WithMessage("AlphaCode of country is required")
+                                     .Length(MinAlphaCodeLength, MaxAlphaCodeLength).WithMessage("AlphaCode length is either 2 or 3");
         }
     }
 }
