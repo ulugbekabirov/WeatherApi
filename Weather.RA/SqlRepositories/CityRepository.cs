@@ -44,6 +44,7 @@ namespace Weather.RA.SqlRepositories
 
         public async Task UpdateAsync(City entity)
         {
+            entity.Version++;
             _context.Cities.Update(entity);
             await _context.SaveChangesAsync();
         }
