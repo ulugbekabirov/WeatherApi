@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Weather.SDK.DTO;
@@ -23,9 +24,8 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCityById(int id)
+        public async Task<IActionResult> GetCityById(Guid id)
         {
-            Ok(id);
             return await _mediator.Send(new GetCityRequest() { CityId = id });
         }
 
@@ -36,13 +36,13 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCity(int id, [FromBody] CreateCityDTO city)
+        public async Task<IActionResult> UpdateCity(Guid id, [FromBody] CreateCityDTO city)
         {
             return await _mediator.Send(new UpdateCityRequest() { City = city });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCity(int id)
+        public async Task<IActionResult> DeleteCity(Guid id)
         {
             return await _mediator.Send(new DeleteCityRequest() { CityId = id });
         }

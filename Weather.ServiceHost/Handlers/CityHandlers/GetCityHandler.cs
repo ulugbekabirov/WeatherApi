@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -10,7 +11,7 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 {
     public class GetCityRequest : IRequest<IActionResult>
     {
-        public int CityId { get; set; }
+        public Guid CityId { get; set; }
     }
 
     public class GetCityHandler : IRequestHandler<GetCityRequest, IActionResult>

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -9,7 +10,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
     public class DeleteCountryRequest : IRequest<IActionResult>
     {
-        public int CountryId { get; set; }
+        public Guid CountryId { get; set; }
     }
 
     public class DeleteCountryHandler : IRequestHandler<DeleteCountryRequest, IActionResult>

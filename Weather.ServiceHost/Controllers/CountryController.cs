@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Weather.SDK.DTO;
@@ -23,7 +24,7 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCountryById(int id)
+        public async Task<IActionResult> GetCountryById(Guid id)
         {
             return await _mediator.Send(new GetCountryRequest() { CountryId = id });
         }
@@ -35,13 +36,13 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCountry(int id, [FromBody] CreateCountryDTO country)
+        public async Task<IActionResult> UpdateCountry(Guid id, [FromBody] CreateCountryDTO country)
         {
             return await _mediator.Send(new UpdateCountryRequest() { Id = id, Country = country });
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCountry(int id)
+        public async Task<IActionResult> DeleteCountry(Guid id)
         {
             return await _mediator.Send(new DeleteCountryRequest() { CountryId = id });
         }

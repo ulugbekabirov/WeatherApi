@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -11,7 +12,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
     public class UpdateCountryRequest : IRequest<IActionResult>
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         public CreateCountryDTO Country { get; set; }
     }

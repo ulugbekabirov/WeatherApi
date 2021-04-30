@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -29,7 +30,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
         {
             var country = _mapper.Map<Country>(request.Country);
             country = await _countryRepository.CreateAsync(country);
-            return new CreatedAtRouteResult(_mapper.Map<CountryDTO>(country));
+            return new CreatedAtRouteResult(country.Id, _mapper.Map<CountryDTO>(country));
         }
     }
 }
