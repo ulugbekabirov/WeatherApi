@@ -36,7 +36,7 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCountry(Guid id, [FromBody] CreateCountryDTO country)
+        public async Task<IActionResult> UpdateCountry(Guid id, [FromBody] UpdateCountryDTO country)
         {
             return await _mediator.Send(new UpdateCountryRequest() { Id = id, Country = country });
         }

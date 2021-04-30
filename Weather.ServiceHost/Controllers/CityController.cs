@@ -36,9 +36,9 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCity(Guid id, [FromBody] CreateCityDTO city)
+        public async Task<IActionResult> UpdateCity(Guid id, [FromBody] UpdateCityDTO city)
         {
-            return await _mediator.Send(new UpdateCityRequest() { City = city });
+            return await _mediator.Send(new UpdateCityRequest() { Id = id, City = city });
         }
 
         [HttpDelete("{id}")]
