@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
@@ -11,7 +12,9 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 {
     public class UpdateCityRequest : IRequest<IActionResult>
     {
-        public CreateCityDTO City { get; set; }
+        public Guid Id { get; set; }
+
+        public UpdateCityDTO City { get; set; }
     }
 
     public class UpdateCityHandler : IRequestHandler<UpdateCityRequest, IActionResult>
@@ -27,7 +30,13 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 
         public async Task<IActionResult> Handle(UpdateCityRequest request, CancellationToken cancellationToken)
         {
-            var city = _mapper.Map<City>(request.City);
+            var city = await _cityRepository.GetByIdAsync(request.Id);
+            if (city.Version > request.City.Version)
+            {
+                return new ConflictObjectResult("Version mismatch");
+            }
+
+            city = _mapper.Map<City>(request.City);
             await _cityRepository.UpdateAsync(city);
             return new NoContentResult();
         }

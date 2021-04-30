@@ -14,7 +14,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
     {
         public Guid Id { get; set; }
 
-        public CreateCountryDTO Country { get; set; }
+        public UpdateCountryDTO Country { get; set; }
     }
 
     public class UpdateCountryHandler : IRequestHandler<UpdateCountryRequest, IActionResult>
@@ -30,7 +30,13 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
         public async Task<IActionResult> Handle(UpdateCountryRequest request, CancellationToken cancellationToken)
         {
-            var country = _mapper.Map<Country>(request.Country);
+            var country = await _countryRepository.GetByIdAsync(request.Id);
+            if (country.Version > request.Country.Version)
+            {
+                return new ConflictObjectResult("Version mismatch");
+            }
+
+            country = _mapper.Map<Country>(request.Country);
             await _countryRepository.UpdateAsync(country);
             return new NoContentResult();
         }
