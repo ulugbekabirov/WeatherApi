@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Weather.Data.Entities;
 using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
+using Weather.ServiceHost.Validators;
 
 namespace Weather.ServiceHost.Handlers.CityHandlers
 {
@@ -18,15 +19,24 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
+        private readonly CityValidator _cityValidator; 
 
         public CreateCityHandler(ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
             _mapper = mapper;
+            _cityValidator = new CityValidator(_cityRepository);
         }
 
         public async Task<IActionResult> Handle(CreateCityRequest request, CancellationToken cancellationToken)
         {
+            var validationResult = await _cityValidator.ValidateAsync(request.City);
+
+            if (!validationResult.IsValid)
+            {
+                return new BadRequestObjectResult(validationResult.Errors);
+            }
+
             var city = _mapper.Map<City>(request.City);
             city = await _cityRepository.CreateAsync(city);
             return new OkObjectResult(_mapper.Map<CityDTO>(city));
