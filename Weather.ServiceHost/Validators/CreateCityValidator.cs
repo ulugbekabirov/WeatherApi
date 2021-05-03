@@ -25,4 +25,3 @@ namespace Weather.ServiceHost.Validators
         }
     }
 }
-}
