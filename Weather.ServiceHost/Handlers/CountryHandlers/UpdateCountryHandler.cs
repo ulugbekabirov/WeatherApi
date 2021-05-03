@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Weather.Data.Entities;
 using Weather.RA.Interfaces;
 using Weather.SDK.DTO;
+using Weather.ServiceHost.Validators;
 
 namespace Weather.ServiceHost.Handlers.CountryHandlers
 {
@@ -21,16 +22,26 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
     {
         private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
+        private readonly UpdateCountryValidator _countryValidator;
 
         public UpdateCountryHandler(ICountryRepository countryRepository, IMapper mapper)
         {
             _countryRepository = countryRepository;
             _mapper = mapper;
+            _countryValidator = new UpdateCountryValidator(_countryRepository);
         }
 
         public async Task<IActionResult> Handle(UpdateCountryRequest request, CancellationToken cancellationToken)
         {
+            var validationResult = await _countryValidator.ValidateAsync(request.Country);
+
+            if (!validationResult.IsValid)
+            {
+                return new BadRequestObjectResult(validationResult.Errors);
+            }
+
             var country = await _countryRepository.GetByIdAsync(request.Id);
+
             if (country.Version > request.Country.Version)
             {
                 return new ConflictObjectResult("Version mismatch");

@@ -19,13 +19,13 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
     {
         private readonly ICityRepository _cityRepository;
         private readonly IMapper _mapper;
-        private readonly CityValidator _cityValidator; 
+        private readonly CreateCityValidator _cityValidator;
 
         public CreateCityHandler(ICityRepository cityRepository, IMapper mapper)
         {
             _cityRepository = cityRepository;
             _mapper = mapper;
-            _cityValidator = new CityValidator(_cityRepository);
+            _cityValidator = new CreateCityValidator(_cityRepository);
         }
 
         public async Task<IActionResult> Handle(CreateCityRequest request, CancellationToken cancellationToken)

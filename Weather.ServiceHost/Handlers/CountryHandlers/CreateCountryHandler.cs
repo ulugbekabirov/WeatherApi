@@ -20,13 +20,13 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
     {
         private readonly ICountryRepository _countryRepository;
         private readonly IMapper _mapper;
-        private readonly CountryValidator _countryValidator;
+        private readonly CreateCountryValidator _countryValidator;
 
         public CreateCountryHandler(ICountryRepository countryRepository, IMapper mapper)
         {
             _countryRepository = countryRepository;
             _mapper = mapper;
-            _countryValidator = new CountryValidator(_countryRepository);
+            _countryValidator = new CreateCountryValidator(_countryRepository);
         }
 
         public async Task<IActionResult> Handle(CreateCountryRequest request, CancellationToken cancellationToken)
