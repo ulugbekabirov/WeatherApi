@@ -8,8 +8,6 @@ namespace Weather.SDK.DTO
 {
     public class UpdateCountryDTO
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string AlphaCode { get; set; }

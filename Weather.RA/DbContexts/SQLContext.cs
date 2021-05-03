@@ -12,9 +12,6 @@ namespace Weather.RA.DbContexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Country>().HasIndex(c => c.Name).IsUnique();
-            modelBuilder.Entity<Country>().HasIndex(c => c.AlphaCode).IsUnique();
-            modelBuilder.Entity<City>().HasIndex(c => c.Name).IsUnique();
         }
 
         public DbSet<City> Cities { get; set; }
