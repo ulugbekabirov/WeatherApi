@@ -39,7 +39,6 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
             {
                 return new BadRequestObjectResult(validationResult.Errors);
             }
-
             var city = await _cityRepository.GetByIdAsync(request.Id);
 
             if (city.Version > request.City.Version)
