@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using Weather.Data.Entities;
 using Weather.RA.DbContexts;
+using Weather.RA.Interfaces;
 
 namespace Weather.RA.MongoRepositories
 {
-    public class WeatherRepository
+    public class WeatherRepository : IWeatherRepository
     {
         private readonly IMongoCollection<CityWeather> _collection;
 
-        public WeatherRepository(MongoDBContext context)
+        public WeatherRepository(IMongoDBContext context)
         {
             _collection = context.GetCollection<CityWeather>("WeatherAPI");
         }

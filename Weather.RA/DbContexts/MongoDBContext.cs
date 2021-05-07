@@ -1,9 +1,10 @@
 ﻿using Microsoft.Extensions.Options;
 using MongoDB.Driver;
+using Weather.RA.Interfaces;
 
 namespace Weather.RA.DbContexts
 {
-    public class MongoDBContext
+    public class MongoDBContext : IMongoDBContext
     {
         private readonly IMongoDatabase _db;
 

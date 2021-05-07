@@ -33,7 +33,7 @@ namespace Weather.ServiceHost.Handlers.CityHandlers
 
         public async Task<IActionResult> Handle(UpdateCityRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = await _cityValidator.ValidateAsync(request.City);
+            var validationResult = await _cityValidator.ValidateAsync(request.City, cancellationToken);
 
             if (!validationResult.IsValid)
             {

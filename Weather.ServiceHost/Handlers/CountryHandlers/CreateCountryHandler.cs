@@ -31,7 +31,7 @@ namespace Weather.ServiceHost.Handlers.CountryHandlers
 
         public async Task<IActionResult> Handle(CreateCountryRequest request, CancellationToken cancellationToken)
         {
-            var validationResult = await _countryValidator.ValidateAsync(request.Country);
+            var validationResult = await _countryValidator.ValidateAsync(request.Country, cancellationToken);
 
             if (!validationResult.IsValid)
             {

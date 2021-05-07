@@ -5,8 +5,7 @@ using System.Threading.Tasks;
 
 namespace Weather.ServiceHost
 {
-    public class Constants
+    public static class Constants
     {
-        public string COUNTY_ERROR { get; set; }
     }
 }
