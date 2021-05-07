@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Weather.ServiceHost.Controllers
 {
-    [Route("api/[]")]
+    [Route("api/weather")]
     [ApiController]
     public class WeatherApiController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCountries()
+        public async Task<IActionResult> GetWeatherByCityName()
         {
             return;
         }
