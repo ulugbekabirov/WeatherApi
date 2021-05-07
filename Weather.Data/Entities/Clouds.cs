@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace Weather.Data.Entities
 {
-    public class Weather
+    public class Clouds
     {
-        public int Id { get; set; }
-
-        public string Main { get; set; }
-
-        public string Description { get; set; }
+        public int All { get; set; }
     }
 }

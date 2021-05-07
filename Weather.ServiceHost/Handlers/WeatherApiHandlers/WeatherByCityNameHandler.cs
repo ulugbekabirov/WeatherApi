@@ -4,8 +4,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Weather.ServiceHost.AppStart;
 
@@ -14,28 +16,38 @@ namespace Weather.ServiceHost.Handlers.WeatherApiHandlers
     public class WeatherByCityNameRequest : IRequest<IActionResult>
     {
         public string CityName { get; set; }
-
-        public string APIKey { get; set; }
     }
 
     public class WeatherByCityNameHandler : IRequestHandler<WeatherByCityNameRequest, IActionResult>
     {
+        private readonly string _apiKey;
+        private readonly Uri _apiUrl;
+
         public WeatherByCityNameHandler(IOptions<WeatherApiSettings> options)
         {
-
+            _apiKey = options.Value.Apikey;
+            _apiUrl = options.Value.ApiUrl;
         }
 
         public async Task<IActionResult> Handle(WeatherByCityNameRequest request, CancellationToken cancellationToken)
         {
             var client = new HttpClient();
 
-            var request = new HttpRequestMessage
+            var req = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = new Uri("https://community-open-weather-map.p.rapidapi.com/find?q=london&cnt=0&mode=null&lon=0&type=link%2C%20accurate&lat=0&units=imperial%2C%20metric")
+                RequestUri = new Uri(_apiUrl + $"?q={request.CityName}&appid={_apiKey}"),
             };
 
-            return request;
+            var response = await client.SendAsync(req, cancellationToken);
+            var body = await response.Content.ReadAsStringAsync(cancellationToken);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return new BadRequestObjectResult(body);
+            }
+
+            return new OkObjectResult(body);
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Weather.ServiceHost.AppStart
     {
         public string Apikey { get; set; }
 
-        public string ApiUrl { get; set; }
+        public Uri ApiUrl { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Weather.ServiceHost.Handlers.WeatherApiHandlers;
 
 namespace Weather.ServiceHost.Controllers
 {
@@ -20,9 +21,9 @@ namespace Weather.ServiceHost.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetWeatherByCityName()
+        public async Task<IActionResult> GetWeatherByCityName(string cityName)
         {
-            return;
+            return await _mediator.Send(new WeatherByCityNameRequest() { CityName = cityName });
         }
     }
 }
